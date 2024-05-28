@@ -12,15 +12,8 @@ generate
 	end
 endgenerate
 
-// comparisons: 9 total
-// 1. compare [0] to [1], [2] to [3], ... [8] to [9] (5 comparisons)
-// 2. compare results of (1), leaving 1 remainder value (2 comparisons)
-// 3. compare results of (2) (1 comparison)
-// 4. compare result of (3) with the remainder of (2) (1 comparison)
-
-// store intermediate larger index found for each 1-to-1 comparison
-wire [INDEX_WIDTH-1:0] larger_idxs [0:7];	// 9 comparisons, 8 intermediate comparison outputs
-wire signed[BIT_WIDTH-1:0] larger_vals [0:8];	// 9 comparisons, 8 intermediate comparison outputs
+wire [INDEX_WIDTH-1:0] larger_idxs [0:7];	
+wire signed[BIT_WIDTH-1:0] larger_vals [0:8];	
 
 // 1. compare [0] to [1], [2] to [3], ... [8] to [9] (5 comparisons)
 genvar gen;

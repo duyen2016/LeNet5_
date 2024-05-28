@@ -43,7 +43,6 @@ end
 
 conv55_16bit #(.BIT_WIDTH(BIT_WIDTH), .OUT_WIDTH(BIT_WIDTH)) C1_CONV0 (
     .mul_res(conv1_In[BIT_WIDTH*25-1:0]),
-    //.bias( rom_c1[BIT_WIDTH*((g+1)*SIZE)-1 : BIT_WIDTH*((g+1)*SIZE-1)] ),
     .convValue(C1_convOut[0])
 );
 
@@ -56,7 +55,6 @@ ReLU #(.BIT_WIDTH(BIT_WIDTH)) C1_RELU0 (
 
 conv55_16bit #(.BIT_WIDTH(BIT_WIDTH), .OUT_WIDTH(BIT_WIDTH)) C1_CONV1 (
     .mul_res(conv1_In[BIT_WIDTH*2*25-1:BIT_WIDTH*25]),
-    //.bias( rom_c1[BIT_WIDTH*((g+1)*SIZE)-1 : BIT_WIDTH*((g+1)*SIZE-1)] ),
     .convValue(C1_convOut[1])
 );
 
@@ -68,7 +66,6 @@ ReLU #(.BIT_WIDTH(BIT_WIDTH)) C1_RELU1 (
 );
 conv55_16bit #(.BIT_WIDTH(BIT_WIDTH), .OUT_WIDTH(BIT_WIDTH)) C1_CONV2 (
     .mul_res(conv1_In[BIT_WIDTH*3*25-1:BIT_WIDTH*2*25]),
-    //.bias( rom_c1[BIT_WIDTH*((g+1)*SIZE)-1 : BIT_WIDTH*((g+1)*SIZE-1)] ),
     .convValue(C1_convOut[2])
 );
 
@@ -80,7 +77,6 @@ ReLU #(.BIT_WIDTH(BIT_WIDTH)) C1_RELU2 (
 );
 conv55_16bit #(.BIT_WIDTH(BIT_WIDTH), .OUT_WIDTH(BIT_WIDTH)) C1_CONV3 (
     .mul_res(conv1_In[BIT_WIDTH*4*25-1:BIT_WIDTH*3*25]),
-    //.bias( rom_c1[BIT_WIDTH*((g+1)*SIZE)-1 : BIT_WIDTH*((g+1)*SIZE-1)] ),
     .convValue(C1_convOut[3])
 );
 
@@ -92,7 +88,6 @@ ReLU #(.BIT_WIDTH(BIT_WIDTH)) C1_RELU3 (
 );
 conv55_16bit #(.BIT_WIDTH(BIT_WIDTH), .OUT_WIDTH(BIT_WIDTH)) C1_CONV4 (
     .mul_res(conv1_In[BIT_WIDTH*5*25-1:BIT_WIDTH*4*25]),
-    //.bias( rom_c1[BIT_WIDTH*((g+1)*SIZE)-1 : BIT_WIDTH*((g+1)*SIZE-1)] ),
     .convValue(C1_convOut[4])
 );
 
@@ -104,7 +99,6 @@ ReLU #(.BIT_WIDTH(BIT_WIDTH)) C1_RELU4 (
 );
 conv55_16bit #(.BIT_WIDTH(BIT_WIDTH), .OUT_WIDTH(BIT_WIDTH)) C1_CONV5 (
     .mul_res(conv1_In[BIT_WIDTH*6*25-1:BIT_WIDTH*5*25]),
-    //.bias( rom_c1[BIT_WIDTH*((g+1)*SIZE)-1 : BIT_WIDTH*((g+1)*SIZE-1)] ),
     .convValue(C1_convOut[5])
 );
 
