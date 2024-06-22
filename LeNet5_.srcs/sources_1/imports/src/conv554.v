@@ -1,8 +1,8 @@
 module conv554 #(parameter BIT_WIDTH = 8, OUT_WIDTH = 32) (
-		input signed[BIT_WIDTH-1:0] next0,
-		input signed[BIT_WIDTH-1:0] next1,
-		input signed[BIT_WIDTH-1:0] next2,
-		input signed[BIT_WIDTH-1:0] next3,
+		input signed[BIT_WIDTH*25-1:0] next0,
+		input signed[BIT_WIDTH*25-1:0] next1,
+		input signed[BIT_WIDTH*25-1:0] next2,
+		input signed[BIT_WIDTH*25-1:0] next3,
 		input signed[BIT_WIDTH-1:0] bias,
 		output signed[OUT_WIDTH-1:0] convValue	// size should increase to hold the sum of products
 );

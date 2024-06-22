@@ -15,12 +15,13 @@ initial begin
     start =  1'b0;
     read = 1'b1;
     #50;
+    repeat (23) begin
     rst = 1'b1;
     #50 rst = 1'b0;
     #50 start = 1'b1;
     #10 start = 1'b0;
     #50000;
-
+    end
     $stop;
 end
 

@@ -198,7 +198,7 @@ always @(posedge clk or posedge rst) begin
         conv5_Out <= 0;
     end
     else 
-    case (C5_en)
+    case (C5_en-1)
         C5_STORE_16th, C5_STORE_32nd, C5_STORE_48th, C5_STORE_64th, C5_STORE_80th, C5_STORE_96th,  C5_STORE_112th, C5_STORE_128th, C5_STORE_144th, C5_STORE_160th : begin 
             conv5_Out[OUT_WIDTH*1-1: OUT_WIDTH*0] <= C5_relu[0];
             conv5_Out[OUT_WIDTH*2-1: OUT_WIDTH*1] <= C5_relu[1];
@@ -226,7 +226,7 @@ conv55_16 #(.BIT_WIDTH(BIT_WIDTH), .OUT_WIDTH(OUT_WIDTH)) C5_CONV_0 (
     .convValue(C5_convOut[0])
 );
 ReLU #(.BIT_WIDTH(OUT_WIDTH)) C5_RELU_0 (
-  		.in(C5_convOut[0]), .out(C5_relu[0])
+  		.in({{5{C5_convOut[0][ OUT_WIDTH-1]}},C5_convOut[0][ OUT_WIDTH-1: 5]}), .out(C5_relu[0])
 );
 conv55_16 #(.BIT_WIDTH(BIT_WIDTH), .OUT_WIDTH(OUT_WIDTH)) C5_CONV_1(
     .clk(clk),
@@ -237,7 +237,7 @@ conv55_16 #(.BIT_WIDTH(BIT_WIDTH), .OUT_WIDTH(OUT_WIDTH)) C5_CONV_1(
     .convValue(C5_convOut[1])
 );
 ReLU #(.BIT_WIDTH(OUT_WIDTH)) C5_RELU_1 (
-  		.in(C5_convOut[1]), .out(C5_relu[1])
+  		.in({{5{C5_convOut[1][ OUT_WIDTH-1]}},C5_convOut[1][ OUT_WIDTH-1: 5]}), .out(C5_relu[1])
 );
 conv55_16 #(.BIT_WIDTH(BIT_WIDTH), .OUT_WIDTH(OUT_WIDTH)) C5_CONV_2(
     .clk(clk),
@@ -248,7 +248,7 @@ conv55_16 #(.BIT_WIDTH(BIT_WIDTH), .OUT_WIDTH(OUT_WIDTH)) C5_CONV_2(
     .convValue(C5_convOut[2])
 );
 ReLU #(.BIT_WIDTH(OUT_WIDTH)) C5_RELU_2 (
-  		.in(C5_convOut[2]), .out(C5_relu[2])
+  		.in({{5{C5_convOut[2][ OUT_WIDTH-1]}},C5_convOut[2][ OUT_WIDTH-1: 5]}), .out(C5_relu[2])
 );
 conv55_16 #(.BIT_WIDTH(BIT_WIDTH), .OUT_WIDTH(OUT_WIDTH)) C5_CONV_3(
     .clk(clk),
@@ -259,7 +259,7 @@ conv55_16 #(.BIT_WIDTH(BIT_WIDTH), .OUT_WIDTH(OUT_WIDTH)) C5_CONV_3(
     .convValue(C5_convOut[3])
 );
 ReLU #(.BIT_WIDTH(OUT_WIDTH)) C5_RELU_3 (
-  		.in(C5_convOut[3]), .out(C5_relu[3])
+  		.in({{5{C5_convOut[3][ OUT_WIDTH-1]}},C5_convOut[3][ OUT_WIDTH-1: 5]}), .out(C5_relu[3])
 );
 conv55_16 #(.BIT_WIDTH(BIT_WIDTH), .OUT_WIDTH(OUT_WIDTH)) C5_CONV_4(
     .clk(clk),
@@ -270,7 +270,7 @@ conv55_16 #(.BIT_WIDTH(BIT_WIDTH), .OUT_WIDTH(OUT_WIDTH)) C5_CONV_4(
     .convValue(C5_convOut[4])
 );
 ReLU #(.BIT_WIDTH(OUT_WIDTH)) C5_RELU_4 (
-  		.in(C5_convOut[4]), .out(C5_relu[4])
+  		.in({{5{C5_convOut[4][ OUT_WIDTH-1]}},C5_convOut[4][ OUT_WIDTH-1: 5]}), .out(C5_relu[4])
 );
 conv55_16 #(.BIT_WIDTH(BIT_WIDTH), .OUT_WIDTH(OUT_WIDTH)) C5_CONV_5(
     .clk(clk),
@@ -281,7 +281,7 @@ conv55_16 #(.BIT_WIDTH(BIT_WIDTH), .OUT_WIDTH(OUT_WIDTH)) C5_CONV_5(
     .convValue(C5_convOut[5])
 );
 ReLU #(.BIT_WIDTH(OUT_WIDTH)) C5_RELU_5 (
-  		.in(C5_convOut[5]), .out(C5_relu[5])
+  		.in({{5{C5_convOut[5][ OUT_WIDTH-1]}},C5_convOut[5][ OUT_WIDTH-1: 5]}), .out(C5_relu[5])
 );
 conv55_16 #(.BIT_WIDTH(BIT_WIDTH), .OUT_WIDTH(OUT_WIDTH)) C5_CONV_6(
     .clk(clk),
@@ -292,7 +292,7 @@ conv55_16 #(.BIT_WIDTH(BIT_WIDTH), .OUT_WIDTH(OUT_WIDTH)) C5_CONV_6(
     .convValue(C5_convOut[6])
 );
 ReLU #(.BIT_WIDTH(OUT_WIDTH)) C5_RELU_6 (
-  		.in(C5_convOut[6]), .out(C5_relu[6])
+  		.in({{5{C5_convOut[6][ OUT_WIDTH-1]}},C5_convOut[6][ OUT_WIDTH-1: 5]}), .out(C5_relu[6])
 );
 conv55_16 #(.BIT_WIDTH(BIT_WIDTH), .OUT_WIDTH(OUT_WIDTH)) C5_CONV_7(
     .clk(clk),
@@ -303,7 +303,7 @@ conv55_16 #(.BIT_WIDTH(BIT_WIDTH), .OUT_WIDTH(OUT_WIDTH)) C5_CONV_7(
     .convValue(C5_convOut[7])
 );
 ReLU #(.BIT_WIDTH(OUT_WIDTH)) C5_RELU_7 (
-  		.in(C5_convOut[7]), .out(C5_relu[7])
+  		.in({{5{C5_convOut[7][ OUT_WIDTH-1]}},C5_convOut[7][ OUT_WIDTH-1: 5]}), .out(C5_relu[7])
 );
 conv55_16 #(.BIT_WIDTH(BIT_WIDTH), .OUT_WIDTH(OUT_WIDTH)) C5_CONV_8(
     .clk(clk),
@@ -314,7 +314,7 @@ conv55_16 #(.BIT_WIDTH(BIT_WIDTH), .OUT_WIDTH(OUT_WIDTH)) C5_CONV_8(
     .convValue(C5_convOut[8])
 );
 ReLU #(.BIT_WIDTH(OUT_WIDTH)) C5_RELU_8 (
-  		.in(C5_convOut[8]), .out(C5_relu[8])
+  		.in({{5{C5_convOut[8][ OUT_WIDTH-1]}},C5_convOut[8][ OUT_WIDTH-1: 5]}), .out(C5_relu[8])
 );
 conv55_16 #(.BIT_WIDTH(BIT_WIDTH), .OUT_WIDTH(OUT_WIDTH)) C5_CONV_9(
     .clk(clk),
@@ -325,7 +325,7 @@ conv55_16 #(.BIT_WIDTH(BIT_WIDTH), .OUT_WIDTH(OUT_WIDTH)) C5_CONV_9(
     .convValue(C5_convOut[9])
 );
 ReLU #(.BIT_WIDTH(OUT_WIDTH)) C5_RELU_9 (
-  		.in(C5_convOut[9]), .out(C5_relu[9])
+  		.in({{5{C5_convOut[9][ OUT_WIDTH-1]}},C5_convOut[9][ OUT_WIDTH-1: 5]}), .out(C5_relu[9])
 );
 conv55_16 #(.BIT_WIDTH(BIT_WIDTH), .OUT_WIDTH(OUT_WIDTH)) C5_CONV_10(
     .clk(clk),
@@ -336,7 +336,7 @@ conv55_16 #(.BIT_WIDTH(BIT_WIDTH), .OUT_WIDTH(OUT_WIDTH)) C5_CONV_10(
     .convValue(C5_convOut[10])
 );
 ReLU #(.BIT_WIDTH(OUT_WIDTH)) C5_RELU_10 (
-  		.in(C5_convOut[10]), .out(C5_relu[10])
+  		.in({{5{C5_convOut[10][ OUT_WIDTH-1]}},C5_convOut[10][ OUT_WIDTH-1: 5]}), .out(C5_relu[10])
 );
 conv55_16 #(.BIT_WIDTH(BIT_WIDTH), .OUT_WIDTH(OUT_WIDTH)) C5_CONV_11(
     .clk(clk),
@@ -347,7 +347,7 @@ conv55_16 #(.BIT_WIDTH(BIT_WIDTH), .OUT_WIDTH(OUT_WIDTH)) C5_CONV_11(
     .convValue(C5_convOut[11])
 );
 ReLU #(.BIT_WIDTH(OUT_WIDTH)) C5_RELU_11 (
-  		.in(C5_convOut[11]), .out(C5_relu[11])
+  		.in({{5{C5_convOut[11][ OUT_WIDTH-1]}},C5_convOut[11][ OUT_WIDTH-1: 5]}), .out(C5_relu[11])
 );
 
 endmodule

@@ -202,11 +202,11 @@ always @(*) begin
             end
             ///////////////////////////////////////////////////////
             if (counter_S4 >= 10) begin //load 10 value first
-                if ((counter_S4_LOAD >= 2) && (S4_en < S4_STORE_5th) && (S4_en >= S4_LOAD_1st)) begin //load 2 value then cal
+                if ((counter_S4_LOAD > 1) && ((C3_en == C3_STORE_5th) || ((S4_en < S4_STORE_5th) && (S4_en >= S4_LOAD_1st)))) begin //load 2 value then cal
                     S4_en_n = S4_en + 1;
                     if (S4_en_n == S4_STORE_5th) counter_S4_STORE_n = counter_S4_STORE + 1;//
                     end
-                else if (counter_S4_LOAD < 2) begin
+                else if (counter_S4_LOAD <= 1) begin
                     if (C3_en == C3_STORE_5th) begin                  //if c3 store --> s4 load      
                         S4_en_n = S4_LOAD_1st;
                         counter_S4_LOAD_n = counter_S4_LOAD + 1;
@@ -239,48 +239,43 @@ always @(*) begin
                 if (counter_C5_LOAD >= 5) begin //load 5 next value
                     if (S4_en == S4_STORE_1st) begin // S4 store then c5 load
                         C5_en_n = C5_LOAD_1st;
-                        
-                        if (counter_S4_STORE >= 5) begin //reset counter S4
-                            counter_S4_n = 0;
-                            counter_S4_STORE_n = 0;
-                        end
                     end
-                    if (C5_en == C5_LOAD_5th) counter_S4_LOAD_n = 0; //reset counter load s4
-                    if (C5_en < C5_STORE_160th) C5_en_n = C5_en + 1 ;
+                    else 
+                    if (C5_en <= C5_STORE_160th) C5_en_n = C5_en + 1 ;
                     else C5_en_n = 0;
                 end
                 else if (counter_C5_LOAD < 5) begin 
                     if (S4_en == S4_STORE_1st) begin
                         C5_en_n = C5_LOAD_1st;
-                        
-                        if (counter_S4_STORE >= 5) begin 
-                            counter_S4_n = 0;
-                            counter_S4_STORE_n = 0;
-                        end
                         counter_C5_LOAD_n = counter_C5_LOAD + 1;
                     end
                     else if ((C5_en >= C5_LOAD_1st) && (C5_en < C5_LOAD_5th)) C5_en_n = C5_en + 1;
-                    else if (C5_en == C5_LOAD_5th) counter_S4_LOAD_n = 0;
                     else C5_en_n = 0;
                     end
                 else C5_en_n = 0;
+                if (S4_en == S4_STORE_5th) counter_S4_LOAD_n = 0; //reset counter load s4      
+                if (counter_S4_STORE >= 5) begin 
+                    counter_S4_n = 0;
+                    counter_S4_STORE_n = 0;
+                end
             end
             else begin
                 if (S4_en == S4_STORE_1st) begin
                     C5_en_n = C5_LOAD_1st;
                     counter_C5_n = counter_C5 + 1;
                 end
-                else if (C5_en == C5_LOAD_5th) counter_S4_LOAD_n = 0;
                 else if ((C5_en >= C5_LOAD_1st) && (C5_en < C5_LOAD_5th)) begin
                     C5_en_n = C5_en + 1;
                 end
-                if (counter_S4_STORE >= 14) begin 
+                else C5_en_n = 0;
+                if (S4_en == S4_STORE_5th) counter_S4_LOAD_n = 0;
+                if (counter_S4_STORE >= 5) begin 
                     counter_S4_n = 0;
                     counter_S4_STORE_n = 0;
                 end
             end
             /////////////////////////////////////////////////////////
-            if (((C5_en[3:0] - 7) == 0) && (C5_en >= C5_STORE_16th)) begin //c5 store then f6 load
+            if (((C5_en[3:0]-4'h8) == 4'h0) && (C5_en >= C5_STORE_16th)) begin //c5 store then f6 load
                 F6_en_n = F6_en + 1;
             end
             else if (F6_en < F6_LOAD_10th) F6_en_n = F6_en; 

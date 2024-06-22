@@ -20,7 +20,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module maxpoolS4 #(parameter BIT_WIDTH = 16, MAP_SIZE = 14)(
+module maxpoolS4 #(parameter BIT_WIDTH = 16, MAP_SIZE = 10)(
     input clk, rst,
     input [3:0] S4_en, 
     input signed [BIT_WIDTH*16-1:0] S4_poolIn,

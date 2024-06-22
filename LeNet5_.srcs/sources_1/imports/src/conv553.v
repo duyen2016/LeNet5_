@@ -31,7 +31,7 @@ conv55_16bit #(.BIT_WIDTH(BIT_WIDTH), .OUT_WIDTH(OUT_WIDTH)) CONV2 (
 wire signed[OUT_WIDTH-1:0] sum0, sum1;
 
 assign sum0 = conv0 + conv1;
-assign sum1 = conv2 + {{{OUT_WIDTH-BIT_WIDTH}{bias[BIT_WIDTH-1]}},bias};
+assign sum1 = conv2 + {bias};
 assign convValue = sum0 + sum1;
 
 endmodule

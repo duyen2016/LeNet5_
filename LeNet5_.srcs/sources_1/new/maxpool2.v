@@ -27,7 +27,7 @@ module maxpoolS2 #(parameter BIT_WIDTH = 16)(
     output reg signed [BIT_WIDTH*6-1:0] S2_poolOut
     );
 
-localparam MAP_SIZE = 32;
+localparam MAP_SIZE = 28;
 `include "parameter.vh"
 wire [ BIT_WIDTH - 1 : 0 ] S2_in [5:0];
 wire [ BIT_WIDTH - 1 : 0 ] S2_Out [5:0];     

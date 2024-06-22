@@ -208,7 +208,7 @@ always @(posedge clk or posedge rst) begin
     endcase
 end
 
-wire signed[OUT_WIDTH-1:0] sums[0:234];	// 120-2 intermediate sums
+wire signed[OUT_WIDTH-1:0] sums[0:117];	// 120-2 intermediate sums
 genvar x;
 
 generate
@@ -243,40 +243,78 @@ endgenerate
 // final sum
 assign out[0] = sums[116] + sums[117] + {{{OUT_WIDTH-BIT_WIDTH}{ bias_reg[0][BIT_WIDTH-1]}},bias_reg[0]};
 ReLU #(.BIT_WIDTH(OUT_WIDTH)) F6_RELU_0 (
-    .in(out[0]), .out(F6_relu[0])
+    .in({{8{out[0][ BIT_WIDTH-1]}},out[0][ BIT_WIDTH-1:8]}), .out(F6_relu[0])
 );
+
+wire signed[OUT_WIDTH-1:0] sums1[0:117];	// 120-2 intermediate sums1
+
 generate
-	// sums[0] to sums[59]
-	for (x = 60; x < 120; x = x+1) begin : addertree_nodes6
-		assign sums[x] = mult[x*2] + mult[x*2+1];
+	// sums1[0] to sums1[59]
+	for (x = 0; x < 60; x = x+1) begin : addertree_nodes10
+		assign sums1[x] = mult[x*2+120] + mult[x*2+1+120];
 	end
-	// sums[60] to sums[89]
-	for (x = 60; x < 90; x = x+1) begin : addertree_nodes7
-		assign sums[x+60] = sums[x*2] + sums[x*2+1];
+	// sums1[60] to sums1[89]
+	for (x = 0; x < 30; x = x+1) begin : addertree_nodes11
+		assign sums1[x+60] = sums1[x*2] + sums1[x*2+1];
 	end
-	// sums[90] to sums[104]
-	for (x = 60; x < 75; x = x+1) begin : addertree_nodes8
-		assign sums[x+90] = sums[x*2+60] + sums[x*2+61];
+	// sums1[90] to sums1[104]
+	for (x = 0; x < 15; x = x+1) begin : addertree_nodes12
+		assign sums1[x+90] = sums1[x*2+60] + sums1[x*2+61];
 	end
-	// sums[105] to sums[111]
-	for (x = 60; x < 77; x = x+1) begin : addertree_nodes9
-		assign sums[x+105] = sums[x*2+90] + sums[x*2+91];
+	// sums1[105] to sums1[111]
+	for (x = 0; x < 7; x = x+1) begin : addertree_nodes13
+		assign sums1[x+105] = sums1[x*2+90] + sums1[x*2+91];
 	end
-	// sums[112] to sums[114]
-	for (x = 60; x < 63; x = x+1) begin : addertree_nodes10
-		assign sums[x+112] = sums[x*2+105] + sums[x*2+106];
+	// sums1[112] to sums1[114]
+	for (x = 0; x < 3; x = x+1) begin : addertree_nodes14
+		assign sums1[x+112] = sums1[x*2+105] + sums1[x*2+106];
 	end
-	// sums[115] = sums[111] + sums[104]
-	assign sums[175] = sums[171] + sums[164];
-	// sums[116] to sums[117]
-	for (x = 60; x < 62; x = x+1) begin : addertree_nodes11
-		assign sums[x+116] = sums[x*2+112] + sums[x*2+113];
+	// sums1[115] = sums1[111] + sums1[104]
+	assign sums1[115] = sums1[111] + sums1[104];
+	// sums1[116] to sums1[117]
+	for (x = 0; x < 2; x = x+1) begin : addertree_nodes15
+		assign sums1[x+116] = sums1[x*2+112] + sums1[x*2+113];
 	end
 endgenerate
 
 // final sum
-assign out[1] = sums[176] + sums[177] + {{{OUT_WIDTH-BIT_WIDTH}{ bias_reg[1][BIT_WIDTH-1]}},bias_reg[1]};
+assign out[1] = sums1[116] + sums1[117] + {{{OUT_WIDTH-BIT_WIDTH}{ bias_reg[1][BIT_WIDTH-1]}},bias_reg[1]};
 ReLU #(.BIT_WIDTH(OUT_WIDTH)) F6_RELU_1 (
-    .in(out[1]), .out(F6_relu[1])
+    .in({{8{out[1][ BIT_WIDTH-1]}},out[1][ BIT_WIDTH-1:8]}), .out(F6_relu[1])
 );
+
+//generate
+//	// sums[0] to sums[59]
+//	for (x = 60; x < 120; x = x+1) begin : addertree_nodes6
+//		assign sums[x] = mult[x*2] + mult[x*2+1];
+//	end
+//	// sums[60] to sums[89]
+//	for (x = 60; x < 90; x = x+1) begin : addertree_nodes7
+//		assign sums[x+60] = sums[x*2] + sums[x*2+1];
+//	end
+//	// sums[90] to sums[104]
+//	for (x = 60; x < 75; x = x+1) begin : addertree_nodes8
+//		assign sums[x+90] = sums[x*2+60] + sums[x*2+61];
+//	end
+//	// sums[105] to sums[111]
+//	for (x = 60; x < 77; x = x+1) begin : addertree_nodes9
+//		assign sums[x+105] = sums[x*2+90] + sums[x*2+91];
+//	end
+//	// sums[112] to sums[114]
+//	for (x = 60; x < 63; x = x+1) begin : addertree_nodes10
+//		assign sums[x+112] = sums[x*2+105] + sums[x*2+106];
+//	end
+//	// sums[115] = sums[111] + sums[104]
+//	assign sums[175] = sums[171] + sums[164];
+//	// sums[116] to sums[117]
+//	for (x = 60; x < 62; x = x+1) begin : addertree_nodes11
+//		assign sums[x+116] = sums[x*2+112] + sums[x*2+113];
+//	end
+//endgenerate
+
+//// final sum
+//assign out[1] = sums[176] + sums[177] + {{{OUT_WIDTH-BIT_WIDTH}{ bias_reg[1][BIT_WIDTH-1]}},bias_reg[1]};
+//ReLU #(.BIT_WIDTH(OUT_WIDTH)) F6_RELU_1 (
+//    .in({{4{out[1][ BIT_WIDTH-1]}},out[1][ BIT_WIDTH-1:4]}), .out(F6_relu[1])
+//);
 endmodule

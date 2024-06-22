@@ -50,7 +50,7 @@ assign C1_convPlusBias[0] = C1_convOut[0] + bias[BIT_WIDTH-1:0];
 
 // C1 activation layer (ReLU)
 ReLU #(.BIT_WIDTH(BIT_WIDTH)) C1_RELU0 (
-    .in(C1_convPlusBias[0]), .out(C1_relu[0])
+    .in({{4{C1_convPlusBias[0][ OUT_WIDTH-1]}},C1_convPlusBias[0][ OUT_WIDTH-1:4]}), .out(C1_relu[0])
 );
 
 conv55_16bit #(.BIT_WIDTH(BIT_WIDTH), .OUT_WIDTH(BIT_WIDTH)) C1_CONV1 (
@@ -62,7 +62,7 @@ assign C1_convPlusBias[1] = C1_convOut[1] + bias[BIT_WIDTH*2-1:BIT_WIDTH];
 
 // C1 activation layer (ReLU)
 ReLU #(.BIT_WIDTH(BIT_WIDTH)) C1_RELU1 (
-    .in(C1_convPlusBias[1]), .out(C1_relu[1])
+    .in({{4{C1_convPlusBias[1][ OUT_WIDTH-1]}},C1_convPlusBias[1][ OUT_WIDTH-1:4]}), .out(C1_relu[1])
 );
 conv55_16bit #(.BIT_WIDTH(BIT_WIDTH), .OUT_WIDTH(BIT_WIDTH)) C1_CONV2 (
     .mul_res(conv1_In[BIT_WIDTH*3*25-1:BIT_WIDTH*2*25]),
@@ -73,7 +73,7 @@ assign C1_convPlusBias[2] = C1_convOut[2] + bias[BIT_WIDTH*3-1:BIT_WIDTH*2];
 
 // C1 activation layer (ReLU)
 ReLU #(.BIT_WIDTH(BIT_WIDTH)) C1_RELU2 (
-    .in(C1_convPlusBias[2]), .out(C1_relu[2])
+    .in({{4{C1_convPlusBias[2][ OUT_WIDTH-1]}},C1_convPlusBias[2][ OUT_WIDTH-1:4]}), .out(C1_relu[2])
 );
 conv55_16bit #(.BIT_WIDTH(BIT_WIDTH), .OUT_WIDTH(BIT_WIDTH)) C1_CONV3 (
     .mul_res(conv1_In[BIT_WIDTH*4*25-1:BIT_WIDTH*3*25]),
@@ -84,7 +84,7 @@ assign C1_convPlusBias[3] = C1_convOut[3] + bias[BIT_WIDTH*4-1:BIT_WIDTH*3];
 
 // C1 activation layer (ReLU)
 ReLU #(.BIT_WIDTH(BIT_WIDTH)) C1_RELU3 (
-    .in(C1_convPlusBias[3]), .out(C1_relu[3])
+    .in({{4{C1_convPlusBias[3][ OUT_WIDTH-1]}},C1_convPlusBias[3][ OUT_WIDTH-1:4]}), .out(C1_relu[3])
 );
 conv55_16bit #(.BIT_WIDTH(BIT_WIDTH), .OUT_WIDTH(BIT_WIDTH)) C1_CONV4 (
     .mul_res(conv1_In[BIT_WIDTH*5*25-1:BIT_WIDTH*4*25]),
@@ -95,7 +95,7 @@ assign C1_convPlusBias[4] = C1_convOut[4] + bias[BIT_WIDTH*5-1:BIT_WIDTH*4];
 
 // C1 activation layer (ReLU)
 ReLU #(.BIT_WIDTH(BIT_WIDTH)) C1_RELU4 (
-    .in(C1_convPlusBias[4]), .out(C1_relu[4])
+    .in({{4{C1_convPlusBias[4][ OUT_WIDTH-1]}},C1_convPlusBias[4][ OUT_WIDTH-1:4]}), .out(C1_relu[4])
 );
 conv55_16bit #(.BIT_WIDTH(BIT_WIDTH), .OUT_WIDTH(BIT_WIDTH)) C1_CONV5 (
     .mul_res(conv1_In[BIT_WIDTH*6*25-1:BIT_WIDTH*5*25]),
@@ -106,7 +106,7 @@ assign C1_convPlusBias[5] = C1_convOut[5] + bias[BIT_WIDTH*6-1:BIT_WIDTH*5];
 
 // C1 activation layer (ReLU)
 ReLU #(.BIT_WIDTH(BIT_WIDTH)) C1_RELU5 (
-    .in(C1_convPlusBias[5]), .out(C1_relu[5])
+    .in({{4{C1_convPlusBias[5][ OUT_WIDTH-1]}},C1_convPlusBias[5][ OUT_WIDTH-1:4]}), .out(C1_relu[5])
 );
 
 endmodule

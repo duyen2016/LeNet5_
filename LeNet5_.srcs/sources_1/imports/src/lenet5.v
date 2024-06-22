@@ -131,7 +131,7 @@ wire signed [IN_WIDTH*C3_MAPS-1:0] conv3_Out;
 //convolution 3 14x14x6 -- 10x10x16
 conv3 #(.BIT_WIDTH(16), .OUT_WIDTH(16), .MAP_SIZE(14)) CONV3(
     .clk(clk), .C3_en(C3_en), .rst(rst),
-    .conv3_In(M[IN_WIDTH*25*12-1:0]),
+    .conv3_In(M),
     .bias(C3_bias),
     .conv3_Out(conv3_Out)
     );
@@ -154,7 +154,7 @@ conv5 #(.BIT_WIDTH(16), .OUT_WIDTH(16), .MAP_SIZE(5)) CONV5 (
     );
 
 //fully connected 1x1x120 -- 1x1x84
-FC6 #(.BIT_WIDTH(16), .OUT_WIDTH(64)) FC6 (
+FC6 #(.BIT_WIDTH(16), .OUT_WIDTH(16)) FC6 (
         .clk(clk), .F6_en(F6_en), .rst(rst),
 		.F6_In(M[ IN_WIDTH*240-1:0]),
 		.bias(F6_bias),
@@ -171,7 +171,7 @@ FC7 #(.BIT_WIDTH(16), .OUT_WIDTH(16)) FC7 (
 
 wire [3:0] max;
 // find largest output
-max_index_10 #(.BIT_WIDTH(OUT_WIDTH), .INDEX_WIDTH(4)) FIND_MAX (
+max_index_10 #(.BIT_WIDTH(IN_WIDTH), .INDEX_WIDTH(4)) FIND_MAX (
 	.in(F7Out),
 	.max(max)	// LeNet-5 output
 );
